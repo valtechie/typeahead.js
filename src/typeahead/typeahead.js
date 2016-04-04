@@ -172,9 +172,10 @@ var Typeahead = (function() {
       if ($selectable = this.menu.getActiveSelectable()) {
         this.select($selectable) && $e.preventDefault();
       }
-
       else if ($selectable = this.menu.getTopSelectable()) {
-        this.autocomplete($selectable) && $e.preventDefault();
+        if (this.menu.getSelectables().length === 1) {
+          this.autocomplete($selectable) && $e.preventDefault();
+        }
       }
     },
 

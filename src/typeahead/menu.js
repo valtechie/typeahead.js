@@ -42,33 +42,33 @@ var Menu = (function() {
 
     // ### event handlers
 
-    _onSelectableClick: function onSelectableClick($e) {
+    _onSelectableClick: function _onSelectableClick($e) {
       this.trigger('selectableClicked', $($e.currentTarget));
     },
 
-    _onRendered: function onRendered(type, dataset, suggestions, async) {
+    _onRendered: function _onRendered(type, dataset, suggestions, async) {
       this.$node.toggleClass(this.classes.empty, this._allDatasetsEmpty());
       this.trigger('datasetRendered', dataset, suggestions, async);
     },
 
-    _onCleared: function onCleared() {
+    _onCleared: function _onCleared() {
       this.$node.toggleClass(this.classes.empty, this._allDatasetsEmpty());
       this.trigger('datasetCleared');
     },
 
-    _propagate: function propagate() {
+    _propagate: function _propagate() {
       this.trigger.apply(this, arguments);
     },
 
     // ### private
 
-    _allDatasetsEmpty: function allDatasetsEmpty() {
+    _allDatasetsEmpty: function _allDatasetsEmpty() {
       return _.every(this.datasets, isDatasetEmpty);
 
       function isDatasetEmpty(dataset) { return dataset.isEmpty(); }
     },
 
-    _getSelectables: function getSelectables() {
+    _getSelectables: function _getSelectables() {
       return this.$node.find(this.selectors.selectable);
     },
 
@@ -77,7 +77,7 @@ var Menu = (function() {
       $selectable && $selectable.removeClass(this.classes.cursor);
     },
 
-    _ensureVisible: function ensureVisible($el) {
+    _ensureVisible: function _ensureVisible($el) {
       var elTop, elBottom, nodeScrollTop, nodeHeight;
 
       elTop = $el.position().top;
@@ -176,6 +176,10 @@ var Menu = (function() {
       var $selectable = this._getSelectables().first();
 
       return $selectable.length ? $selectable : null;
+    },
+
+    getSelectables: function getSelectables() {
+      return this._getSelectables();
     },
 
     update: function update(query) {

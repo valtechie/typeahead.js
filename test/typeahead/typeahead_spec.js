@@ -475,11 +475,13 @@ describe('Typeahead', function() {
         expect(payload.preventDefault).not.toHaveBeenCalled();
       });
 
+      // test this
       it('should autocomplete to top suggestion', function() {
         var $el;
 
         $el = $('<foo>');
         spyOn(this.view, 'autocomplete');
+        this.menu.getSelectables.andReturn($el);
         this.menu.getTopSelectable.andReturn($el);
 
         this.input.trigger(eventName, payload);
@@ -487,11 +489,26 @@ describe('Typeahead', function() {
         expect(this.view.autocomplete).toHaveBeenCalledWith($el);
       });
 
+      it('should not autocomplete to top suggestion when multiple suggstions', function() {
+        var $el;
+
+        $el = $('<foo>');
+        $els = $(['<foo>', '<foo>']);
+        spyOn(this.view, 'autocomplete');
+        this.menu.getSelectables.andReturn($els);
+        this.menu.getTopSelectable.andReturn($el);
+
+        this.input.trigger(eventName, payload);
+
+        expect(this.view.autocomplete).not.toHaveBeenCalled();
+      });
+
       it('should prevent default behavior of DOM event if autocompletion succeeds', function() {
         var $el;
 
         $el = $('<foo>');
         spyOn(this.view, 'autocomplete').andReturn(true);
+        this.menu.getSelectables.andReturn($el);
         this.menu.getTopSelectable.andReturn($el);
 
         this.input.trigger(eventName, payload);
@@ -504,6 +521,7 @@ describe('Typeahead', function() {
 
         $el = $('<foo>');
         spyOn(this.view, 'autocomplete').andReturn(false);
+        this.menu.getSelectables.andReturn($el);
         this.menu.getTopSelectable.andReturn($el);
 
         this.input.trigger(eventName, payload);
@@ -1409,4 +1427,3 @@ describe('Typeahead', function() {
 
   function prevent($e) { $e.preventDefault(); }
 });
-
