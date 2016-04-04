@@ -1,7 +1,7 @@
 /*!
- * typeahead.js 0.11.1
+ * typeahead.js 0.12.0
  * https://github.com/twitter/typeahead.js
- * Copyright 2013-2015 Twitter, Inc. and other contributors; Licensed MIT
+ * Copyright 2013-2016 Twitter, Inc. and other contributors; Licensed MIT
  */
 
 (function(root, factory) {
@@ -151,7 +151,7 @@
             noop: function() {}
         };
     }();
-    var VERSION = "0.11.1";
+    var VERSION = "0.12.0";
     var tokenizers = function() {
         "use strict";
         return {
@@ -1782,34 +1782,34 @@
             }
         }
         _.mixin(Menu.prototype, EventEmitter, {
-            _onSelectableClick: function onSelectableClick($e) {
+            _onSelectableClick: function _onSelectableClick($e) {
                 this.trigger("selectableClicked", $($e.currentTarget));
             },
-            _onRendered: function onRendered(type, dataset, suggestions, async) {
+            _onRendered: function _onRendered(type, dataset, suggestions, async) {
                 this.$node.toggleClass(this.classes.empty, this._allDatasetsEmpty());
                 this.trigger("datasetRendered", dataset, suggestions, async);
             },
-            _onCleared: function onCleared() {
+            _onCleared: function _onCleared() {
                 this.$node.toggleClass(this.classes.empty, this._allDatasetsEmpty());
                 this.trigger("datasetCleared");
             },
-            _propagate: function propagate() {
+            _propagate: function _propagate() {
                 this.trigger.apply(this, arguments);
             },
-            _allDatasetsEmpty: function allDatasetsEmpty() {
+            _allDatasetsEmpty: function _allDatasetsEmpty() {
                 return _.every(this.datasets, isDatasetEmpty);
                 function isDatasetEmpty(dataset) {
                     return dataset.isEmpty();
                 }
             },
-            _getSelectables: function getSelectables() {
+            _getSelectables: function _getSelectables() {
                 return this.$node.find(this.selectors.selectable);
             },
             _removeCursor: function _removeCursor() {
                 var $selectable = this.getActiveSelectable();
                 $selectable && $selectable.removeClass(this.classes.cursor);
             },
-            _ensureVisible: function ensureVisible($el) {
+            _ensureVisible: function _ensureVisible($el) {
                 var elTop, elBottom, nodeScrollTop, nodeHeight;
                 elTop = $el.position().top;
                 elBottom = elTop + $el.outerHeight(true);
@@ -1870,6 +1870,9 @@
             getTopSelectable: function getTopSelectable() {
                 var $selectable = this._getSelectables().first();
                 return $selectable.length ? $selectable : null;
+            },
+            getSelectables: function getSelectables() {
+                return this._getSelectables();
             },
             update: function update(query) {
                 var isValidUpdate = query !== this.query;
@@ -2043,7 +2046,9 @@
                 if ($selectable = this.menu.getActiveSelectable()) {
                     this.select($selectable) && $e.preventDefault();
                 } else if ($selectable = this.menu.getTopSelectable()) {
-                    this.autocomplete($selectable) && $e.preventDefault();
+                    if (this.menu.getSelectables().length === 1) {
+                        this.autocomplete($selectable) && $e.preventDefault();
+                    }
                 }
             },
             _onEscKeyed: function onEscKeyed() {
