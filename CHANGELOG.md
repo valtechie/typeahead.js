@@ -16,6 +16,14 @@ For more information on semantic versioning, please visit http://semver.org/.
 
 ---
 
+### 0.12.1 April 6, 2016
+
+* Fixes an issue where due to the limit option, the returned suggestions didn't respect the limit.
+
+### 0.12.0 April 5, 2016
+
+* Only autocomplete on a non-selected state, if there is a single suggestion available
+
 ### 0.11.1 April 26, 2015
 
 * Add prepare option to prefetch. [#1181]
