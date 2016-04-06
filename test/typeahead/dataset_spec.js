@@ -224,7 +224,8 @@ describe('Dataset', function() {
       });
     });
 
-    it('should respect limit option in regard to async', function() {
+    it('should respect limit option in regard to async when returning equal length of suggestions', function() {
+      this.dataset.limit = mockSuggestions.length + mockAsyncSuggestions.length;
       this.dataset.async = true;
       this.source.andCallFake(fakeGetWithAsyncSuggestions);
 
@@ -233,7 +234,35 @@ describe('Dataset', function() {
       waits(100);
 
       runs(function() {
-        expect(this.dataset.$el.find('.tt-suggestion')).toHaveLength(5);
+        expect(this.dataset.$el.find('.tt-suggestion')).toHaveLength(this.dataset.limit);
+      });
+    });
+
+    it('should respect limit option in regard to async when returning larger length of suggestions', function() {
+      this.dataset.limit = mockSuggestions.length + mockAsyncSuggestions.length - 2;
+      this.dataset.async = true;
+      this.source.andCallFake(fakeGetWithAsyncSuggestions);
+
+      this.dataset.update('woah');
+
+      waits(100);
+
+      runs(function() {
+        expect(this.dataset.$el.find('.tt-suggestion')).toHaveLength(this.dataset.limit);
+      });
+    });
+
+    it('should respect limit option in regard to async when returning smaller length of suggestions', function() {
+      this.dataset.limit = mockSuggestions.length + mockAsyncSuggestions.length + 2;
+      this.dataset.async = true;
+      this.source.andCallFake(fakeGetWithAsyncSuggestions);
+
+      this.dataset.update('woah');
+
+      waits(100);
+
+      runs(function() {
+        expect(this.dataset.$el.find('.tt-suggestion')).toHaveLength(this.dataset.limit - 2);
       });
     });
 
@@ -432,6 +461,14 @@ describe('Dataset', function() {
   // helper functions
   // ----------------
 
+  var mockAsyncSuggestions = [
+    { value: 'four', raw: { value: 'four' } },
+    { value: 'five', raw: { value: 'five' } },
+    { value: 'six', raw: { value: 'six' } },
+    { value: 'seven', raw: { value: 'seven' } },
+    { value: 'eight', raw: { value: 'eight' } },
+  ];
+
   function syncEmptySuggestions(q, sync, async) {
     sync([]);
   }
@@ -457,13 +494,7 @@ describe('Dataset', function() {
     sync(mockSuggestions);
 
     setTimeout(function() {
-      async([
-        { value: 'four', raw: { value: 'four' } },
-        { value: 'five', raw: { value: 'five' } },
-        { value: 'six', raw: { value: 'six' } },
-        { value: 'seven', raw: { value: 'seven' } },
-        { value: 'eight', raw: { value: 'eight' } },
-      ]);
+      async(mockAsyncSuggestions);
     }, 0);
   }
 });
