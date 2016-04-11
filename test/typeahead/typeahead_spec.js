@@ -489,8 +489,24 @@ describe('Typeahead', function() {
         expect(this.view.autocomplete).toHaveBeenCalledWith($el);
       });
 
-      it('should not autocomplete to top suggestion when multiple suggstions', function() {
+      it('should autocomplete to top suggestion when multiple suggestions and autocompleteOnSingleSuggestion is false', function() {
         var $el;
+
+        $el = $('<foo>');
+        $els = $(['<foo>', '<foo>']);
+        spyOn(this.view, 'autocomplete');
+        this.menu.getSelectables.andReturn($els);
+        this.menu.getTopSelectable.andReturn($el);
+
+        this.input.trigger(eventName, payload);
+
+        expect(this.view.autocomplete).toHaveBeenCalledWith($el);
+      });
+
+      it('should not autocomplete to top suggestion when multiple suggestions and autocompleteOnSingleSuggestion is true', function() {
+        var $el;
+
+        this.view.autocompleteOnSingleSuggestion = true;
 
         $el = $('<foo>');
         $els = $(['<foo>', '<foo>']);

@@ -1,7 +1,7 @@
 Changelog
 =========
 
-For transparency and insight into our release cycle, releases will be numbered 
+For transparency and insight into our release cycle, releases will be numbered
 with the follow format:
 
 `<major>.<minor>.<patch>`
@@ -15,6 +15,10 @@ And constructed with the following guidelines:
 For more information on semantic versioning, please visit http://semver.org/.
 
 ---
+
+### 0.12.2 April 11, 2016
+
+* Make single suggestion autocomplete on a non-selected state optional (autocompleteOnSingleSuggestion = true).
 
 ### 0.12.1 April 6, 2016
 
@@ -35,14 +39,14 @@ For more information on semantic versioning, please visit http://semver.org/.
 ### 0.11.0 April 25, 2015
 
 An overhaul of typeahead.js – consider this a release candidate for v1. There
-are bunch of API changes with this release so don't expect backwards 
-compatibility with previous versions. There are also many new undocumented 
-features that have been introduced. Documentation for those features will be 
+are bunch of API changes with this release so don't expect backwards
+compatibility with previous versions. There are also many new undocumented
+features that have been introduced. Documentation for those features will be
 added before v1 ships.
 
 Beware that since this release is pretty much a rewrite, there are bound to be
-some bugs. To be safe, you should consider this release beta software and 
-throughly test your integration of it before using it in production 
+some bugs. To be safe, you should consider this release beta software and
+throughly test your integration of it before using it in production
 environments. This caveat only applies to this release as subsequent releases
 will address any issues that come up.
 
@@ -61,7 +65,7 @@ will address any issues that come up.
 
 **Bug fixes**
 
-* `Bloodhound#clearPrefetchCache` now works with cache keys that contain regex 
+* `Bloodhound#clearPrefetchCache` now works with cache keys that contain regex
   characters. [#771]
 * Prevent outdated network requests from being sent. [#809]
 * Add support to object tokenizers for multiple property tokenization. [#811]
@@ -78,7 +82,7 @@ will address any issues that come up.
   possible to reinitialize Bloodhound instances. [#703]
 * Invoke `local` function during initialization. [#687]
 * In addition to HTML strings, templates can now return DOM nodes. [#742]
-* Prevent `jQuery#typeahead('val', val)` from opening dropdown menus of 
+* Prevent `jQuery#typeahead('val', val)` from opening dropdown menus of
   non-active typeaheads. [#646]
 * Fix bug in IE that resulted in dropdown menus with overflow being closed
   when clicking on the scrollbar. [#705]
@@ -102,22 +106,22 @@ will address any issues that come up.
 **Introducting Bloodhound**
 
 This release was almost a complete rewrite of typeahead.js and will hopefully
-lay the foundation for the 1.0.0 release. It's impossible to enumerate all of 
-the issues that were fixed. If you want to get an idea of what issues 0.10.0 
+lay the foundation for the 1.0.0 release. It's impossible to enumerate all of
+the issues that were fixed. If you want to get an idea of what issues 0.10.0
 resolved, take a look at the closed issues in the [0.10.0 milestone].
 
-The most important change in 0.10.0 is that typeahead.js was broken up into 2 
-individual components: Bloodhound and jQuery#typeahead. Bloodhound is an 
+The most important change in 0.10.0 is that typeahead.js was broken up into 2
+individual components: Bloodhound and jQuery#typeahead. Bloodhound is an
 feature-rich suggestion engine. jQuery#typeahead is a jQuery plugin that turns
 input controls into typeaheads.
 
-It's impossible to write a typeahead library that supports every use-case out 
-of the box – that was the main motivation behind decomposing typeahead.js. 
-Previously, some prospective typeahead.js users were unable to use the library 
+It's impossible to write a typeahead library that supports every use-case out
+of the box – that was the main motivation behind decomposing typeahead.js.
+Previously, some prospective typeahead.js users were unable to use the library
 because either the suggestion engine or the typeahead UI did not meet their
 requirements. In those cases, they were either forced to fork typeahead.js and
 make the necessary modifications or they had to give up on using typeahead.js
-entirely. Now they have the option of swapping out the component that doesn't 
+entirely. Now they have the option of swapping out the component that doesn't
 work for them with a custom implementation.
 
 ### 0.9.3 June 24, 2013

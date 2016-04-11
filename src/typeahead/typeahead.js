@@ -46,6 +46,9 @@ var Typeahead = (function() {
     // detect the initial lang direction
     this.dir = this.input.getLangDir();
 
+    // detect autocompleteOnSingleSuggestion
+    this.autocompleteOnSingleSuggestion = o.autocompleteOnSingleSuggestion;
+
     this._hacks();
 
     this.menu.bind()
@@ -173,7 +176,7 @@ var Typeahead = (function() {
         this.select($selectable) && $e.preventDefault();
       }
       else if ($selectable = this.menu.getTopSelectable()) {
-        if (this.menu.getSelectables().length === 1) {
+        if (this.autocompleteOnSingleSuggestion !== true || this.menu.getSelectables().length === 1) {
           this.autocomplete($selectable) && $e.preventDefault();
         }
       }
