@@ -1,7 +1,4 @@
-[![build status](https://secure.travis-ci.org/twitter/typeahead.js.svg?branch=master)](http://travis-ci.org/twitter/typeahead.js)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
-
-**NOTE:** This is a fork of [Twitter's Typeahead](twitter/typeahead.js) with some added, but undocumented features and bug fixes.
+**NOTE:** This is a fork of Twitter's Typeahead with some added, but undocumented features and bug fixes.
 
 
 [typeahead.js][gh-page]
