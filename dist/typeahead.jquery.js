@@ -1,5 +1,5 @@
 /*!
- * typeahead.js 0.12.1
+ * typeahead.js 0.12.2
  * https://github.com/twitter/typeahead.js
  * Copyright 2013-2016 Twitter, Inc. and other contributors; Licensed MIT
  */
@@ -1058,6 +1058,7 @@
             this.active = false;
             this.input.hasFocus() && this.activate();
             this.dir = this.input.getLangDir();
+            this.autocompleteOnSingleSuggestion = o.autocompleteOnSingleSuggestion;
             this._hacks();
             this.menu.bind().onSync("selectableClicked", this._onSelectableClicked, this).onSync("asyncRequested", this._onAsyncRequested, this).onSync("asyncCanceled", this._onAsyncCanceled, this).onSync("asyncReceived", this._onAsyncReceived, this).onSync("datasetRendered", this._onDatasetRendered, this).onSync("datasetCleared", this._onDatasetCleared, this);
             onFocused = c(this, "activate", "open", "_onFocused");
@@ -1133,7 +1134,7 @@
                 if ($selectable = this.menu.getActiveSelectable()) {
                     this.select($selectable) && $e.preventDefault();
                 } else if ($selectable = this.menu.getTopSelectable()) {
-                    if (this.menu.getSelectables().length === 1) {
+                    if (this.autocompleteOnSingleSuggestion !== true || this.menu.getSelectables().length === 1) {
                         this.autocomplete($selectable) && $e.preventDefault();
                     }
                 }
