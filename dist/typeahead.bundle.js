@@ -1305,9 +1305,17 @@
             if (!o.node || !o.pattern) {
                 return;
             }
-            o.pattern = _.isArray(o.pattern) ? o.pattern : [ o.pattern ];
-            regex = getRegex(o.pattern, o.caseSensitive, o.wordsOnly);
-            traverse(o.node, hightlightTextNode);
+            if (_.isArray(o.pattern)) {
+                regex = getRegex(o.pattern, o.caseSensitive, o.wordsOnly);
+                traverse(o.node, hightlightTextNode);
+            } else {
+                var array = _.filter(o.pattern.split(' '), Boolean);
+                var index, len;
+                for (index = 0, len = array.length; index < len; ++index) {
+                    regex = getRegex([array[index]], o.caseSensitive, o.wordsOnly);
+                    traverse(o.node, hightlightTextNode);
+                }
+            }
             function hightlightTextNode(textNode) {
                 var match, patternNode, wrapperNode;
                 if (match = regex.exec(textNode.data)) {
